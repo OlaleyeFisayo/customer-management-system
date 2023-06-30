@@ -13,10 +13,14 @@ const CustomerSchema = new Schema({
     type: Date,
     required: [true, "Please provide the customers Date of birth"],
   },
+  email: {
+    type: String,
+    required: [true, "Please provide the email"],
+  },
   phoneNumber: {
     type: String,
     required: [true, "Please provide the number"],
-    max: [11, "That is too long for a phone number"],
+    max: [15, "That is too long for a phone number"],
   },
   bankAccountNumber: {
     type: Number,
@@ -28,5 +32,4 @@ const Customer = model("Customer", CustomerSchema);
 
 module.exports = {
   Customer,
-  CustomerSchema,
 };
