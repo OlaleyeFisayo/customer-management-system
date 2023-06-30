@@ -1,10 +1,11 @@
 {
-  "name": "customer-management-system",
+  "name": "server",
   "version": "1.0.0",
   "description": "A customer Management System",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "build": "npm i"
   },
   "repository": {
     "type": "git",
