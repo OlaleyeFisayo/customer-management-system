@@ -1,4 +1,4 @@
-const { Schema } = require("mongoose");
+const { Schema, model } = require("mongoose");
 
 const CustomerSchema = new Schema({
   firstName: {
@@ -16,10 +16,17 @@ const CustomerSchema = new Schema({
   phoneNumber: {
     type: String,
     required: [true, "Please provide the number"],
-    max: [11, "That is too long for a phone number"]
+    max: [11, "That is too long for a phone number"],
   },
   bankAccountNumber: {
     type: Number,
     required: [true, "Please provide the account"],
   },
 });
+
+const Customer = model("Customer", CustomerSchema);
+
+module.exports = {
+  Customer,
+  CustomerSchema,
+};
