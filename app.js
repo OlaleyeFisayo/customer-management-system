@@ -3,6 +3,7 @@ const app = express();
 const routes = require("./routes/customer.routes");
 require("dotenv").config();
 const connectDB = require("./db/connect");
+const notFound = require("./middleware/notFound");
 
 //middleware
 app.use(express.json());
@@ -12,6 +13,7 @@ app.get("/", (req, res) => {
   res.send(`Hello, World!!!`);
 });
 app.use("/api/customers", routes);
+app.use(notFound);
 
 const port = process.env.PORT || 3000;
 
@@ -22,4 +24,4 @@ const start = async () => {
   });
 };
 
-start()
+start();
