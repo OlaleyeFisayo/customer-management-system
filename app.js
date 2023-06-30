@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const routes = require("./routes/customer.routes");
 require("dotenv").config();
+const connectDB = require("./db/connect");
 
 //middleware
 app.use(express.json());
@@ -13,6 +14,12 @@ app.get("/", (req, res) => {
 app.use("/api/customers", routes);
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
-});
+
+const start = async () => {
+  await connectDB(process.env.MONGO_URL);
+  app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}....`);
+  });
+};
+
+start()
