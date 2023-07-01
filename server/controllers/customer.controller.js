@@ -1,34 +1,58 @@
-const asyncWrapper = require("../middleware/asyncWrapper")
+const asyncWrapper = require("../middleware/asyncWrapper");
+const Customer = require("../models/customer.model");
 
 const getAllCustomers = asyncWrapper(async (req, res) => {
-    res.send("Get all customers")
-})
+  const customer = await Customer.find({});
+  res.status(200).json({ customer });
+});
 
 const createCustomers = asyncWrapper(async (req, res) => {
-    res.send("Created customers")
-})
+  const { body } = req;
+  const customer = await Customer.create(body);
+  res.status(201).json({ status: "successful", customer });
+});
 
 const deleteAllCustomers = asyncWrapper(async (req, res) => {
-    res.send("Deleted all customers")
-})
+  const customer = await Customer.deleteMany({});
+  res.status(204).json({ customer });
+});
 
 const getCustomers = asyncWrapper(async (req, res) => {
-    res.send("Get customers")
-})
+  const { id: customerID } = req.params;
+  const customer = await Customer.findById(customerID).exec();
+  if (customer === null) {
+    res.status(404).json({ msg: "Couldn't find a customer with this ID" });
+  }
+  res.status(200).json({ customer });
+});
 
 const editCustomers = asyncWrapper(async (req, res) => {
-    res.send("Edited customer")
-})
+  const { id: customerID } = req.params;
+  const { body } = req;
+  const customer = await Customer.findByIdAndUpdate(customerID, body, {
+    new: true,
+    runValidators: true,
+  });
+  if (customer === null) {
+    res.status(404).json({ msg: "Couldn't find a customer with this ID" });
+  }
+  res.status(201).json({ status: "successful", customer });
+});
 
 const deleteCustomers = asyncWrapper(async (req, res) => {
-    res.send("Deleted customer")
-})
+  const { id: customerID } = req.params;
+  const customer = await Customer.findByIdAndDelete(customerID);
+  if (customer === null) {
+    res.status(404).json({ msg: "Couldn't find a customer with this ID" });
+  }
+  res.status(204).json({ customer });
+});
 
 module.exports = {
-    getAllCustomers,
-    createCustomers,
-    deleteAllCustomers,
-    getCustomers,
-    editCustomers,
-    deleteCustomers
-}
+  getAllCustomers,
+  createCustomers,
+  deleteAllCustomers,
+  getCustomers,
+  editCustomers,
+  deleteCustomers,
+};

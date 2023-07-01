@@ -17,8 +17,7 @@ router
 router
   .route("/:id")
   .get(getCustomers)
-  .post(editCustomers)
+  .patch(editCustomers)
   .delete(deleteCustomers);
-
 
 module.exports = router;

@@ -4,6 +4,7 @@ const app = express();
 const routes = require("./routes/customer.routes");
 const errorHandler = require("./middleware/errorHandler");
 const notFound = require("./middleware/notFound");
+const connectDB = require("./db/connect");
 
 //middleware
 app.use(express.json());
@@ -19,10 +20,15 @@ app.use(notFound);
 const port = process.env.PORT;
 
 const start = async () => {
-  app.listen(
-    port,
-    console.log(`Server is running on http://localhost:${port}`)
-  );
+  try {
+    await connectDB(process.env.MONGO_URL);
+    app.listen(
+      port,
+      console.log(`Server is running on http://localhost:${port}`)
+    );
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 start();
