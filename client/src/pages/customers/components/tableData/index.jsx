@@ -14,7 +14,7 @@ export default function TableData() {
         19.09.2004
       </td>
       <td className="border-solid border-[2px] px-[10px] py-[6px]">
-        09128956416
+        +2349128956416
       </td>
       <td className="border-solid border-[2px] px-[10px] py-[6px] lowercase">
         festusolaleyef@gmail.com
